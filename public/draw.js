@@ -3,11 +3,8 @@ $(document).ready(function() {
         url: "http://localhost:8080/graph"
     }).then(function(data) {
 
-      var g = graphlibDot.parse(data)
-
-      // Render the graphlib object using d3.
-      var renderer = new dagreD3.Renderer();
-      renderer.run(g, d3.select("svg g"));
+      var g = Viz(data);
+      document.body.innerHTML += g;
 
       // Optional - resize the SVG element based on the contents.
       var svg = document.querySelector('#graphContainer');
