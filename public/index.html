@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<style type="text/css">
+svg {
+  overflow: hidden;
+}
+.node rect {
+  stroke: #333;
+  stroke-width: 1.5px;
+  fill: Yellow;
+}
+.edgeLabel rect {
+  fill: #fff;
+}
+.edgePath {
+  stroke: #333;
+  stroke-width: 1.5px;
+  fill: none;
+}
+</style>
+
+<html>
+<head>
+    <title>Docker registry jungle</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+    <script src="http://cpettitt.github.io/project/graphlib-dot/v0.4.10/graphlib-dot.min.js"></script>
+    <script src="http://cpettitt.github.io/project/dagre-d3/v0.1.5/dagre-d3.min.js"></script>
+    <script src="draw.js"></script>
+</head>
+
+<body>
+    <svg id="graphContainer">
+        <g/>
+    </svg>
+</body>
+</html>

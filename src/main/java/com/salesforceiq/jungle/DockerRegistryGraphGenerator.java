@@ -3,6 +3,8 @@ package com.salesforceiq.jungle;
 import com.salesforceiq.jungle.model.DockerFSLayer;
 import com.salesforceiq.jungle.model.DockerManifest;
 import com.salesforceiq.jungle.model.TreeNode;
+import com.salesforceiq.jungle.util.GraphUtil;
+import com.salesforceiq.jungle.util.RegistryUtil;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,22 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ *
  * Created by smulakala on 4/21/16.
  */
-public class GraphDrawer {
+public class DockerRegistryGraphGenerator {
 
-    public static void main(String[] args) throws Exception {
-
-        GraphDrawer drawer = new GraphDrawer();
-        RegistryUtil registryUtil = new RegistryUtil();
-        GraphUtil graphUtil = new GraphUtil();
-
-        List<String> repos = registryUtil.getAllRepositories();
-        drawer.drawGraph(graphUtil, registryUtil, repos);
-    }
-
-
-    public void drawGraph(GraphUtil graphUtil,
+    public String drawGraph(GraphUtil graphUtil,
                           RegistryUtil registryUtil,
                           List<String> repos) throws Exception {
 
@@ -59,8 +51,8 @@ public class GraphDrawer {
         }
 
 
-        graphUtil.display();
-        graphUtil.generateDotFile();
+        //graphUtil.display();
+        return graphUtil.generateDotFile();
     }
 
     public List<DockerFSLayer> updateDuplicates(List<DockerFSLayer> originalLayers) {

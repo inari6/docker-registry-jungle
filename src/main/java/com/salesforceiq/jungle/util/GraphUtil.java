@@ -1,4 +1,4 @@
-package com.salesforceiq.jungle;
+package com.salesforceiq.jungle.util;
 
 import com.salesforceiq.jungle.model.TreeNode;
 import org.graphstream.graph.Node;
@@ -6,12 +6,13 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.stream.file.FileSinkDOT;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 /**
  *
  * Created by smulakala on 4/21/16.
  */
-class GraphUtil {
+public class GraphUtil {
 
     private final SingleGraph graph;
 
@@ -40,9 +41,13 @@ class GraphUtil {
         graph.display();
     }
 
-    public void generateDotFile() throws IOException {
+    public String generateDotFile() throws IOException {
         FileSinkDOT fs = new FileSinkDOT(true);
-        String filePath = "/tmp/1.txt";
-        fs.writeAll(graph, filePath);
+        String dotFileContent;
+        try(StringWriter writer = new StringWriter()) {
+            fs.writeAll(graph, writer);
+            dotFileContent =  writer.toString();
+        }
+        return dotFileContent;
     }
 }

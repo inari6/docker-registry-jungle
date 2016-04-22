@@ -1,4 +1,4 @@
-package com.salesforceiq.jungle;
+package com.salesforceiq.jungle.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,12 +18,12 @@ import java.util.*;
  * Registry util
  * Created by smulakala on 4/21/16.
  */
-class RegistryUtil {
+public class RegistryUtil {
 
     private static final String DOCKER_REGISTRY = "http://192.168.99.100:5000/v2";
     private static final String DOCKER_REPO_MANIFEST = "%s/%s/manifests/%s";
 
-    List<String> getAllRepositories() throws IOException {
+    public List<String> getAllRepositories() throws IOException {
         Map<String, List<String>> repositories;
         HttpGet getCatalog = new HttpGet(DOCKER_REGISTRY + "/_catalog");
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -45,7 +45,7 @@ class RegistryUtil {
 
     }
 
-    DockerManifest getManifest(String repoName) throws IOException {
+    public DockerManifest getManifest(String repoName) throws IOException {
 
         String manifestUrl = String.format(DOCKER_REPO_MANIFEST, DOCKER_REGISTRY, repoName, "latest");
 
