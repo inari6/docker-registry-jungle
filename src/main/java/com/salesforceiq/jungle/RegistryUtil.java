@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.salesforceiq.jungle.model.DockerFSLayer;
 import com.salesforceiq.jungle.model.DockerManifest;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -20,7 +21,9 @@ import java.util.*;
  */
 class RegistryUtil {
 
+
     private static final String DOCKER_REGISTRY = "http://192.168.99.100:5000/v2";
+    //private static final String DOCKER_REGISTRY = "http://docker.amz.relateiq.com/v2";
     private static final String DOCKER_REPO_MANIFEST = "%s/%s/manifests/%s";
 
     List<String> getAllRepositories() throws IOException {
@@ -29,6 +32,12 @@ class RegistryUtil {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             try (CloseableHttpResponse response = httpClient.execute(getCatalog)) {
                 HttpEntity entity = response.getEntity();
+                Header linkHeader = response.getFirstHeader("Docker-Distribution-Api-Version");
+                if(linkHeader != null) {
+                    System.out.println("--- Results still exist ---");
+                } else {
+                    System.out.println("--- Results are finished ---");
+                }
                 if (entity == null) {
                     throw new RuntimeException("Unable to get signature from funnel");
                 } else {
@@ -62,8 +71,10 @@ class RegistryUtil {
 
                     List<DockerFSLayer> fsLayers = dockerManifest.getFsLayers();
                     System.out.println("Name: " + dockerManifest.getName());
-                    for (DockerFSLayer fsLayer : fsLayers) {
-                        System.out.println(fsLayer.getBlobSum());
+                    if(fsLayers != null) {
+                        for (DockerFSLayer fsLayer : fsLayers) {
+                            System.out.println(fsLayer.getBlobSum());
+                        }
                     }
                 }
             }

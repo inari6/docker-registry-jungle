@@ -2,6 +2,7 @@ package com.salesforceiq.jungle.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,6 +43,7 @@ public class DockerManifest {
     }
 
     public List<DockerFSLayer> getFsLayers() {
+        if(fsLayers == null) return Collections.emptyList();
         return fsLayers;
     }
 

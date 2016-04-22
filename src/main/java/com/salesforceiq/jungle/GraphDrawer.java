@@ -33,6 +33,7 @@ public class GraphDrawer {
             DockerManifest manifest = registryUtil.getManifest(repo);
             List<DockerFSLayer> fsLayers = manifest.getFsLayers();
             System.out.println();
+
             if (fsLayers.size() == 1) {
                 TreeNode vertex = new TreeNode(manifest.getName(), fsLayers.get(0).getBlobSum());
                 graphUtil.addNode(vertex);
