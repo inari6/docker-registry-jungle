@@ -3,11 +3,11 @@ package com.salesforceiq.jungle.model;
 /**
  * Created by smulakala on 4/21/16.
  */
-public class TreeVertex {
+public class TreeNode {
     private final String name;
     private final String sha256;
 
-    public TreeVertex(String name, String sha256) {
+    public TreeNode(String name, String sha256) {
         this.name = name;
         this.sha256 = sha256.substring(0,18);
     }
@@ -31,7 +31,7 @@ public class TreeVertex {
 
         if (obj == this) { return true; } if (obj == null || obj.getClass() != this.getClass()) { return false; }
 
-        TreeVertex guest = (TreeVertex) obj;
+        TreeNode guest = (TreeNode) obj;
         return (guest.getSha256() != null && guest.getSha256().equals(this.getSha256()));
     }
 

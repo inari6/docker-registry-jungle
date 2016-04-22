@@ -1,0 +1,90 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+<script src="http://cpettitt.github.io/project/graphlib-dot/v0.4.10/graphlib-dot.min.js"></script>
+<script src="http://cpettitt.github.io/project/dagre-d3/v0.1.5/dagre-d3.min.js"></script>
+
+<script type="text/javascript">
+
+window.onload = function() {
+  // Parse the DOT syntax into a graphlib object.
+  var g = graphlibDot.parse(
+//     'digraph  registry {\n' +
+//   ' node [color=lightblue2, style=filled];\n' +
+//   ' "sha256:420890c9e91" [label="alpine" color="Red"];\n' +
+//   ' "sha256:43114457b48" [label="alpine-grep" color="Red"];\n' +
+//   ' "sha256:8687a2f98a6" [label="alpine-sed" color="Red"];\n' +
+//   ' "sha256:889bd1c30bf" [label="alpine-touch" color="Red"];\n' +
+//   ' "sha256:b9cb3bd6400" [label="alpine-bash" color="Red"];\n' +
+//   ' "2-sha256:a3ed95cae" -> "sha256:889bd1c30bf";\n' +
+//   ' "sha256:420890c9e91" -> "sha256:43114457b48";\n' +
+//   ' "sha256:420890c9e91" -> "sha256:a3ed95caeb0";\n' +
+//   ' "sha256:a3ed95caeb0" -> "sha256:8687a2f98a6";\n' +
+//   ' "sha256:a3ed95caeb0" -> "sha256:b9cb3bd6400";\n' +
+//   ' "sha256:b9cb3bd6400" -> "2-sha256:a3ed95cae";\n' +
+// '}'
+
+  ' digraph {\n' +
+  ' "sha256:420890c9e91" ["color"="Green","style"="filled","label"="alpine"];\n' +
+  ' "sha256:a3ed95caeb0" ;\n' +
+  ' "sha256:b9cb3bd6400" ["color"="Green","style"="filled","label"="alpine-bash"];\n' +
+  ' "sha256:43114457b48" ["color"="Green","style"="filled","label"="alpine-grep"];\n' +
+  ' "sha256:8687a2f98a6" ["color"="Green","style"="filled","label"="alpine-sed"];\n' +
+  ' "2-sha256:a3ed95cae" ;\n' +
+  ' "sha256:889bd1c30bf" ["color"="Green","style"="filled","label"="alpine-touch"];\n' +
+  ' "sha256:420890c9e91" -> "sha256:a3ed95caeb0" ;\n' +
+  ' "sha256:a3ed95caeb0" -> "sha256:b9cb3bd6400" ;\n' +
+  ' "sha256:420890c9e91" -> "sha256:43114457b48" ;\n' +
+  ' "sha256:a3ed95caeb0" -> "sha256:8687a2f98a6" ;\n' +
+  ' "sha256:b9cb3bd6400" -> "2-sha256:a3ed95cae" ;\n' +
+  ' "2-sha256:a3ed95cae" -> "sha256:889bd1c30bf" ;\n' +
+'}'
+    )
+
+  // Render the graphlib object using d3.
+  var renderer = new dagreD3.Renderer();
+  renderer.run(g, d3.select("svg g"));
+
+
+  // Optional - resize the SVG element based on the contents.
+  var svg = document.querySelector('#graphContainer');
+  var bbox = svg.getBBox();
+  svg.style.width = bbox.width + 40.0 + "px";
+  svg.style.height = bbox.height + 40.0 + "px";
+}
+
+</script>
+
+<style type="text/css">
+
+svg {
+  overflow: hidden;
+}
+
+.node rect {
+  stroke: #333;
+  stroke-width: 1.5px;
+  fill: Green;
+}
+.edgeLabel rect {
+  fill: #fff;
+}
+.edgePath {
+  stroke: #333;
+  stroke-width: 1.5px;
+  fill: none;
+}
+
+</style>
+
+
+
+<html>
+
+<body>
+  <script type='text/javascript'>
+  </script>
+  <svg id="graphContainer">
+    <g/>
+  </svg>
+</body>
+
+</html>
