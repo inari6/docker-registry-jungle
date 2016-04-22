@@ -1,0 +1,22 @@
+# IntelliJ files
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# Vim files
+*.swp
+*.bak
+
+# Other
+*~
+*.class
+target/
+classes/
+test-output/
+*.log
