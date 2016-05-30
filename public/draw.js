@@ -1,8 +1,8 @@
 $(document).ready(function() {
+
     $.ajax({
         url: "http://localhost:8080/graph"
     }).then(function(data) {
-
       var g = Viz(data);
       document.body.innerHTML += g;
 

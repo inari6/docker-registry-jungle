@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -17,14 +19,13 @@ import java.util.Map;
  */
 public class DockerRegistryGraphGenerator {
 
-    public String drawGraph(GraphUtil graphUtil,
+    public String drawGraph(final GraphUtil graphUtil,
                           RegistryUtil registryUtil,
                           List<String> repos) throws Exception {
-
+        System.out.println("Drawing Graph ...");
         for (String repo : repos) {
             DockerManifest manifest = registryUtil.getManifest(repo);
             List<DockerFSLayer> fsLayers = manifest.getFsLayers();
-            System.out.println();
             if (fsLayers.size() == 1) {
                 TreeNode vertex = new TreeNode(manifest.getName(), fsLayers.get(0).getBlobSum());
                 graphUtil.addNode(vertex);
@@ -43,13 +44,19 @@ public class DockerRegistryGraphGenerator {
                     graphUtil.addNode(nodeA);
                     graphUtil.addNode(nodeB);
 
-                    System.out.println(nodeA.getSha256() + " ----> " + nodeB.getSha256());
+                    //System.out.println(nodeA.getSha256() + " ----> " + nodeB.getSha256());
                     graphUtil.addEdge(nodeB, nodeA);
 
                 }
             }
         }
 
+
+//        /*Runnable task = () -> {
+//          graphUtil.display();
+//        };
+//
+//        new Thread(task).start();*/
 
         //graphUtil.display();
         return graphUtil.generateDotFile();

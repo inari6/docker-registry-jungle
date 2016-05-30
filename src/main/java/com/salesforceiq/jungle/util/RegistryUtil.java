@@ -21,6 +21,7 @@ import java.util.*;
 public class RegistryUtil {
 
     private static final String DOCKER_REGISTRY = "http://192.168.99.100:5000/v2";
+    //private static final String DOCKER_REGISTRY = "http://docker.amz.relateiq.com/v2";
     private static final String DOCKER_REPO_MANIFEST = "%s/%s/manifests/%s";
 
     public List<String> getAllRepositories() throws IOException {
@@ -30,7 +31,7 @@ public class RegistryUtil {
             try (CloseableHttpResponse response = httpClient.execute(getCatalog)) {
                 HttpEntity entity = response.getEntity();
                 if (entity == null) {
-                    throw new RuntimeException("Unable to get signature from funnel");
+                    throw new RuntimeException("Unable to the response");
                 } else {
                     String data = EntityUtils.toString(entity);
                     repositories = new ObjectMapper().readValue(data,
@@ -55,16 +56,10 @@ public class RegistryUtil {
             try (CloseableHttpResponse response = httpClient.execute(getManifest)) {
                 HttpEntity entity = response.getEntity();
                 if (entity == null) {
-                    throw new RuntimeException("Unable to get signature from funnel");
+                    throw new RuntimeException("Unable to get the response");
                 } else {
                     String data = EntityUtils.toString(entity);
                     dockerManifest = new ObjectMapper().readValue(data, DockerManifest.class);
-
-                    List<DockerFSLayer> fsLayers = dockerManifest.getFsLayers();
-                    System.out.println("Name: " + dockerManifest.getName());
-                    for (DockerFSLayer fsLayer : fsLayers) {
-                        System.out.println(fsLayer.getBlobSum());
-                    }
                 }
             }
         }

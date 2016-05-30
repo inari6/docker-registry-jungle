@@ -48,6 +48,8 @@ public class GraphUtil {
             fs.writeAll(graph, writer);
             dotFileContent =  writer.toString();
         }
+        System.out.println("DOT FILE CONTENT : ");
+        System.out.println(dotFileContent);
         return dotFileContent;
     }
 }
